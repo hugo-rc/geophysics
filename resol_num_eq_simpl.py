@@ -21,7 +21,7 @@ from scipy.integrate import simps
 
 profil_depart=True # True pour partir d'un profil initial, False pour partir sans matiere 
 injection=True
-record = True
+record = False
 i_init=2 # Rayon du profil de depart, utile seulement si profil_depart=True
 h0=0.24 # Hauteur du profil de depart, utile seulement si profil_depart=True
 
@@ -42,10 +42,10 @@ C = 1 + 1/drho
 
 
 delta_r = 1e-3
-delta_t = delta_r**2/(2*h0**3*C**2)
+delta_t = delta_r**2/(h0**3)#*2*C**2)
 
 i_max=100
-n_max=1000
+n_max=20000
 #t_max=100
 r_max=i_max*delta_r
 
@@ -97,7 +97,7 @@ def iter_theta(theta,n,i):
     """
     
     if profil_depart:
-        delta_t=delta_r**2/(2*np.max(h[n,:])**3*C**2)
+        delta_t=delta_r**2/(np.max(h[n,:])**3)#*2*C**2)
     else:
         delta_t=1e-3
     seuil=0.1
